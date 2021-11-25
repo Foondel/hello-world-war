@@ -1,0 +1,39 @@
+sudo apt autoremove
+sudo apt update && sudo apt upgrade -y
+sudo apt install maven
+sudo apt install default-jdk
+mkdir module-3
+cd module-3
+git clone https://github.com/Foondel/hello-world-war.git
+cd hello-world-war
+
+#first lets do some tests:
+mvn -f pom.xml clean package
+ls
+#target directory added
+cd target
+ls 
+#hello-world-war-1.0.0.war  are here...
+#lets go back and make Dockerfile
+cd ..
+vi Dockerfile
+#---start of Dockerfile---
+FROM maven:3.6.0-jdk-11-slim AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
+
+FROM tomcat
+COPY --from=build /home/app/target/hello*.war /usr/local/tomcat/webapps/
+#---end of Dockerfile---
+#lets build the image 
+docker build -t web-app .
+#Now lets run our docker container
+docker run -itd -p 8080:8080 --name deploy web-app
+#Lets test it from my PCs web browser:
+http://192.168.56.50:8080/hello-world-war-1.0.0/index.jsp
+#OK, we are ready to deploy.
+docker login
+docker tag web-app:latest foondel/web-app:latest
+docker push foondel/web-app:latest
+#Done!
