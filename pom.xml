@@ -8,6 +8,11 @@
 	<name>Hello World Web Application Repository</name>
 	<description>Simplest possible Java Webapp</description>
 
+	<properties>
+		  <sonar.organization>foondel</sonar.organization>
+		  <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+	</properties>
+	
 	<build>
 		<plugins>
 			<plugin>
