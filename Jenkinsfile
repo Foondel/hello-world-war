@@ -22,13 +22,13 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
 
     stage('docker tag') {
       steps {
-        sh 'docker tag web-app:latest 192.168.1.224:8123/hello-world-war:latest'
+        sh 'docker tag hello_world_war:latest 192.168.1.224:8123/hello_world_war:latest'
       }
     }
 
     stage('docker push') {
       steps {
-        sh 'docker push 192.168.1.224:8123/hello-world-war:latest'
+        sh 'docker push 192.168.1.224:8123/hello_world_war:latest'
       }
     }
 
