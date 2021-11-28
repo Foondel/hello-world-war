@@ -16,7 +16,8 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
 
     stage('docker build') {
       steps {
-        sh 'docker build -t hello_world_war .'
+        sh '''docker login 192.168.1.224:8123
+docker build -t hello_world_war .'''
       }
     }
 
