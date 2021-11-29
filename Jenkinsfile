@@ -33,4 +33,8 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
     }
 
   }
+  environment {
+    registryCredentials = 'nexus'
+    registry = '192.168.1.224:8123'
+  }
 }
