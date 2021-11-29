@@ -16,7 +16,7 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
 
     stage('docker build') {
       steps {
-        sh 'docker build -t hello_world_war .'
+        sh 'docker build -t hello_world_war:latest .'
       }
     }
 
@@ -28,10 +28,7 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
 
     stage('docker push') {
       steps {
-        script {
-          docker.withRegistry( 'http://'+registry, registryCredentials ) {dockerImage.push('latest')}
-        }
-
+        sh 'docker push 192.168.1.224:8123/hello_world_war:latest'
       }
     }
 
