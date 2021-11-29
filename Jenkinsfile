@@ -15,22 +15,8 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
     }
 
     stage('docker build') {
-      parallel {
-        stage('docker build') {
-          steps {
-            sh 'docker build -t hello_world_war:latest .'
-          }
-        }
-
-        stage('build id') {
-          steps {
-            script {
-              buildId = ${BUILD_ID}
-            }
-
-          }
-        }
-
+      steps {
+        sh 'docker build -t hello_world_war:latest .'
       }
     }
 
@@ -48,6 +34,12 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
           }
         }
 
+      }
+    }
+
+    stage('') {
+      steps {
+        slackSend(botUser: true, channel: '#final-project-avi', color: '#ff0000', failOnError: true, message: 'good', tokenCredentialId: 'slack-token', token: 'rHGDptIwvuzGzuQxE7TfAZGQ', teamDomain: 'intcollege-workspace')
       }
     }
 
