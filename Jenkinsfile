@@ -15,8 +15,22 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
     }
 
     stage('docker build') {
-      steps {
-        sh 'docker build -t hello_world_war:latest .'
+      parallel {
+        stage('docker build') {
+          steps {
+            sh 'docker build -t hello_world_war:latest .'
+          }
+        }
+
+        stage('build id') {
+          steps {
+            script {
+              buildId = ${BUILD_ID}
+            }
+
+          }
+        }
+
       }
     }
 
@@ -42,5 +56,6 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
     registry = '192.168.1.224:8123/'
     imageName = 'hello_world_war'
     registryCredentials = 'nexus'
+    buildId = ''
   }
 }
