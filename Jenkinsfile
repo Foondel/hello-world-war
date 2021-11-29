@@ -39,7 +39,7 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
 
   }
   environment {
-    dockerImage = ''
+    dockerImage = 'hello_world_war'
     registry = '192.168.1.224:8123/'
     imageName = 'hello_world_war'
     registryCredentials = 'nexus'
