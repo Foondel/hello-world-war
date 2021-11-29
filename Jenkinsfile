@@ -28,7 +28,7 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
 
     stage('docker push') {
       steps {
-        sh 'docker push 192.168.1.224:8123/hello_world_war:latest'
+        nexusPublisher(nexusInstanceId: 'http://192.168.1.224:8123', nexusRepositoryId: 'hello_world_war', tagName: 'latest')
       }
     }
 
@@ -36,5 +36,7 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
   environment {
     registryCredentials = 'nexus'
     registry = '192.168.1.224:8123'
+    imageName = 'hello_world_war'
+    dockerImage = '"'
   }
 }
