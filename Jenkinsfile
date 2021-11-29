@@ -37,12 +37,6 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
       }
     }
 
-    stage('error') {
-      steps {
-        slackSend(attachments: 'attachments', tokenCredentialId: 'slack-token', channel: '#final-project-avi', failOnError: true, blocks: 'blocks', color: '#ff0000#ff0000', message: 'Success')
-      }
-    }
-
   }
   environment {
     registry = '192.168.1.224:8123/'
