@@ -37,9 +37,9 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
       }
     }
 
-    stage('') {
+    stage('error') {
       steps {
-        slackSend(botUser: true, channel: '#final-project-avi', color: '#ff0000', failOnError: true, message: 'good', tokenCredentialId: 'slack-token', token: 'rHGDptIwvuzGzuQxE7TfAZGQ', teamDomain: 'intcollege-workspace')
+        slackSend(attachments: 'attachments', tokenCredentialId: 'slack-token', channel: '#final-project-avi', failOnError: true, blocks: 'blocks', color: '#ff0000#ff0000', message: 'Success')
       }
     }
 
