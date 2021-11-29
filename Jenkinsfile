@@ -29,9 +29,7 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
     stage('docker push') {
       steps {
         script {
-          docker.withRegistry( 'http://'+registry, registryCredentials ) {
-            dockerImage.push('latest')
-          }
+          docker.withRegistry( 'http://'+registry, registryCredentials ) {dockerImage.push('latest')}
         }
 
       }
