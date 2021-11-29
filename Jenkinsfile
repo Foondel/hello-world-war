@@ -28,13 +28,17 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
 
     stage('docker push') {
       steps {
-        sh 'docker push http://192.168.1.224:8123/hello_world_war:latest'
+        script {
+          docker.withRegistry('http://192.168.1.224:8123', 'nexus') {
+            docker.build('hello_world_war').push('latest')
+          }
+        }
+
       }
     }
 
   }
   environment {
-    dockerImage = 'hello_world_war'
     registry = '192.168.1.224:8123/'
     imageName = 'hello_world_war'
     registryCredentials = 'nexus'
