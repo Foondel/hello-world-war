@@ -28,7 +28,7 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
 
     stage('docker push') {
       steps {
-        nexusPublisher(nexusInstanceId: '192.168.1.224:8123', nexusRepositoryId: 'hello_world_war', tagName: 'latest')
+        nexusPublisher(nexusInstanceId: 'nexus', nexusRepositoryId: 'hello_world_war', tagName: 'latest')
       }
     }
 
