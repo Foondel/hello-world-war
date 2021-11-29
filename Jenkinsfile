@@ -28,16 +28,18 @@ mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projec
 
     stage('docker push') {
       steps {
-        nexusPublisher(nexusInstanceId: 'nexus', nexusRepositoryId: 'hello_world_war', tagName: 'latest')
+        sh '''docker.withRegistry( \'http://\'+registry, registryCredentials ) 
+{
+dockerImage.push(\'latest\')
+}'''
       }
     }
 
   }
   environment {
-    NEXUS_VERSION = 'nexus3'
-    NEXUS_PROTOCOL = 'http'
-    NEXUS_URL = '192.168.1.224:8123'
-    NEXUS_REPOSITORY = 'hello_world_war'
-    NEXUS_CREDENTIAL_ID = 'nexus'
+    dockerImage = ''
+    registry = '192.168.1.224:8123/'
+    imageName = 'hello_world_war'
+    registryCredentials = 'nexus'
   }
 }
